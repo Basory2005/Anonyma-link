@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Parle Moi - Messages Anonymes</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  h1 {
+    color: #333;
+  }
+  form {
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  button {
+    margin-top: 1rem;
+    width: 100%;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #0056b3;
+  }
+  #messages {
+    max-width: 400px;
+    width: 100%;
+  }
+  .message {
+    background: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    word-wrap: break-word;
+  }
+  footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+  <h1>Parle Moi - Envoie un message anonyme</h1>
+  <form id="messageForm">
+    <textarea id="messageInput" placeholder="Écris ton message ici..." required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <section id="messages">
+    <h2>Messages reçus (localement)</h2>
+  </section>
+
+  <footer>Site de messages anonymes - Hébergé sur GitHub Pages</footer>
+
+<script>
+  const form = document.getElementById('messageForm');
+  const input = document.getElementById('messageInput');
+  const messagesSection = document.getElementById('messages');
+
+  // Récupérer les messages du localStorage au chargement
+  let messages = JSON.parse(localStorage.getItem('nglMessages') || '[]');
+
+  function displayMessages() {
+    messagesSection.innerHTML = '<h2>Messages reçus (localement)</h2>';
+    if (messages.length === 0) {
+      messagesSection.innerHTML += '<p>Aucun message reçu pour le moment.</p>';
+      return;
+    }
+    messages.forEach(msg => {
+      const div = document.createElement('div');
+      div.classList.add('message');
+      div.textContent = msg;
+      messagesSection.appendChild(div);
+    });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = input.value.trim();
+    if (!message) return;
+    messages.push(message);
+    localStorage.setItem('nglMessages', JSON.stringify(messages));
+    displayMessages();
+    input.value = '';
+    alert('Message envoyé ! (stocké localement)');
+  });
+
+  displayMessages();
+</script>
+</body>
+</html>

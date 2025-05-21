@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcul de Moyenne - Sory Cissé</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculateur de Moyenne – Sory Cissé</h1>
+  <p>Entrez les notes pour calculer la moyenne :</p>
+
+  <input type="number" id="note1" placeholder="Note 1"><br>
+  <input type="number" id="note2" placeholder="Note 2"><br>
+  <input type="number" id="note3" placeholder="Note 3"><br>
+  <button onclick="calculerMoyenne()">Calculer</button>
+
+  <h2 id="resultat"></h2>
+
+  <hr>
+  <h3>Contact</h3>
+  <p>📞 Téléphone : 63180585</p>
+
+  <script>
+    function calculerMoyenne() {
+      const n1 = parseFloat(document.getElementById('note1').value) || 0;
+      const n2 = parseFloat(document.getElementById('note2').value) || 0;
+      const n3 = parseFloat(document.getElementById('note3').value) || 0;
+
+      const moyenne = (n1 + n2 + n3) / 3;
+      document.getElementById('resultat').innerText = 
+        "La moyenne est : " + moyenne.toFixed(2);
+    }
+  </script>
+</body>
+</html>
